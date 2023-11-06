@@ -22,6 +22,7 @@ import (
 
 	"cdr.dev/slog"
 	"github.com/coder/coder/v2/coderd/util/slice"
+	"github.com/coder/coder/v2/tailnet/proto"
 )
 
 // Coordinator exchanges nodes with agents to establish connections.
@@ -46,6 +47,17 @@ type Coordinator interface {
 	Close() error
 
 	ServeMultiAgent(id uuid.UUID) MultiAgentConn
+}
+
+// CoordinatorV2 is the interface for interacting with the coordinator via the 2.0 tailnet API.
+type CoordinatorV2 interface {
+	// ServeHTTPDebug serves a debug webpage that shows the internal state of
+	// the coordinator.
+	ServeHTTPDebug(w http.ResponseWriter, r *http.Request)
+	// Node returns an in-memory node by ID.
+	Node(id uuid.UUID) *Node
+	Close() error
+	Coordinate(ctx context.Context, id uuid.UUID, name string, a TunnelAuth) (chan<- *proto.CoordinateRequest, <-chan *proto.CoordinateResponse)
 }
 
 // Node represents a node in the network.
@@ -202,6 +214,19 @@ type Queue interface {
 	UniqueID() uuid.UUID
 	Kind() QueueKind
 	Enqueue(n []*Node) error
+	Name() string
+	Stats() (start, lastWrite int64)
+	Overwrites() int64
+	// CoordinatorClose is used by the coordinator when closing a Queue. It
+	// should skip removing itself from the coordinator.
+	CoordinatorClose() error
+	Done() <-chan struct{}
+	Close() error
+}
+
+type QueueV2 interface {
+	UniqueID() uuid.UUID
+	Enqueue(response *proto.CoordinateResponse) error
 	Name() string
 	Stats() (start, lastWrite int64)
 	Overwrites() int64
