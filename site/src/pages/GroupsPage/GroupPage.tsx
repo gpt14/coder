@@ -283,7 +283,7 @@ const GroupMemberRow = (props: {
         css={[styles.status, member.status === "suspended" && styles.suspended]}
       >
         <Box>{member.status}</Box>
-        <LastSeen value={member.last_seen_at} sx={{ fontSize: 12 }} />
+        <LastSeen value={member.last_seen_at} css={{ fontSize: 12 }} />
       </TableCell>
       <TableCell width="1%">
         {canUpdate && (

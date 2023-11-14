@@ -88,9 +88,9 @@ export const AvatarIcon: FC<AvatarIconProps> = ({ src, alt }) => {
         css={{ maxWidth: "50%" }}
         aria-labelledby={avatarId}
       />
-      <Box id={avatarId} sx={visuallyHidden}>
+      <div id={avatarId} css={{ ...visuallyHidden }}>
         {alt}
-      </Box>
+      </div>
     </>
   );
 };

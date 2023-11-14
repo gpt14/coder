@@ -120,13 +120,13 @@ export const PortForwardPopoverView: React.FC<
             return (
               <Link
                 underline="none"
-                sx={{
+                css={{
                   color: theme.palette.text.primary,
                   fontSize: 14,
                   display: "flex",
                   alignItems: "center",
-                  gap: 1,
-                  py: 0.5,
+                  gap: 8,
+                  padding: "0 4px",
                   fontWeight: 500,
                 }}
                 key={p.port}
@@ -134,11 +134,10 @@ export const PortForwardPopoverView: React.FC<
                 target="_blank"
                 rel="noreferrer"
               >
-                <OpenInNewOutlined sx={{ width: 14, height: 14 }} />
+                <OpenInNewOutlined css={{ width: 14, height: 14 }} />
                 {label}
-                <Box
-                  component="span"
-                  sx={{
+                <span
+                  css={{
                     ml: "auto",
                     color: theme.palette.text.secondary,
                     fontSize: 13,
@@ -146,7 +145,7 @@ export const PortForwardPopoverView: React.FC<
                   }}
                 >
                   {p.port}
-                </Box>
+                </span>
               </Link>
             );
           })}

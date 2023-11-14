@@ -69,15 +69,15 @@ export function WorkspacesButton({
           onValueChange={(newValue) => setSearchTerm(newValue)}
           placeholder="Type/select a workspace template"
           label="Template select for workspace"
-          sx={{ flexShrink: 0, columnGap: 1.5 }}
+          css={{ flexShrink: 0, columnGap: 12 }}
         />
 
         <OverflowY
           maxHeight={380}
-          sx={{
+          css={{
             display: "flex",
             flexDirection: "column",
-            paddingY: 1,
+            padding: "0 8px",
           }}
         >
           {templatesFetchStatus === "loading" ? (

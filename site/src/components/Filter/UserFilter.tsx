@@ -100,7 +100,7 @@ const UserOptionItem = ({
         <UserAvatar
           username={option.label}
           avatarURL={option.avatarUrl}
-          sx={{ width: 16, height: 16, fontSize: 8 }}
+          css={{ width: 16, height: 16, fontSize: 8 }}
         />
       }
     />

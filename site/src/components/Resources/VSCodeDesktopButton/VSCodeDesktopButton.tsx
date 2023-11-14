@@ -84,28 +84,28 @@ export const VSCodeDesktopButton: FC<
         open={isVariantMenuOpen}
         anchorEl={menuAnchorRef.current}
         onClose={() => setIsVariantMenuOpen(false)}
-        sx={{
+        css={{
           "& .MuiMenu-paper": {
             width: menuAnchorRef.current?.clientWidth,
           },
         }}
       >
         <MenuItem
-          sx={{ fontSize: 14 }}
+          css={{ fontSize: 14 }}
           onClick={() => {
             selectVariant("vscode");
           }}
         >
-          <VSCodeIcon sx={{ width: 12, height: 12 }} />
+          <VSCodeIcon css={{ width: 12, height: 12 }} />
           VS Code Desktop
         </MenuItem>
         <MenuItem
-          sx={{ fontSize: 14 }}
+          css={{ fontSize: 14 }}
           onClick={() => {
             selectVariant("vscode-insiders");
           }}
         >
-          <VSCodeInsidersIcon sx={{ width: 12, height: 12 }} />
+          <VSCodeInsidersIcon css={{ width: 12, height: 12 }} />
           VS Code Insiders
         </MenuItem>
       </Menu>

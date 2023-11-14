@@ -3,7 +3,6 @@ import Collapse from "@mui/material/Collapse";
 // eslint-disable-next-line no-restricted-imports -- It is the base component
 import MuiAlert, { AlertProps as MuiAlertProps } from "@mui/material/Alert";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 
 export type AlertProps = MuiAlertProps & {
   actions?: ReactNode;
@@ -32,7 +31,7 @@ export const Alert: FC<AlertProps> = ({
     <Collapse in>
       <MuiAlert
         {...alertProps}
-        sx={{ textAlign: "left", ...alertProps.sx }}
+        css={{ textAlign: "left" }}
         severity={severity}
         action={
           <>
@@ -64,13 +63,11 @@ export const Alert: FC<AlertProps> = ({
 
 export const AlertDetail = ({ children }: { children: ReactNode }) => {
   return (
-    <Box
-      component="span"
-      color={(theme) => theme.palette.text.secondary}
-      fontSize={13}
+    <span
+      css={(theme) => ({ color: theme.palette.text.secondary, fontSize: 13 })}
       data-chromatic="ignore"
     >
       {children}
-    </Box>
+    </span>
   );
 };

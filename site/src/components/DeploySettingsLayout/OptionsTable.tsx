@@ -60,8 +60,8 @@ const OptionsTable: FC<{
                 <TableCell>
                   <OptionName>{option.name}</OptionName>
                   <OptionDescription>{option.description}</OptionDescription>
-                  <Box
-                    sx={{
+                  <div
+                    css={{
                       marginTop: 3,
                       display: "flex",
                       flexWrap: "wrap",
@@ -92,7 +92,7 @@ const OptionsTable: FC<{
                         {option.yaml}
                       </OptionConfig>
                     )}
-                  </Box>
+                  </div>
                 </TableCell>
 
                 <TableCell>

@@ -1,7 +1,6 @@
-import Box, { type BoxProps } from "@mui/material/Box";
 import CheckCircleOutlined from "@mui/icons-material/CheckCircleOutlined";
 import { css, useTheme } from "@emotion/react";
-import type { PropsWithChildren, FC } from "react";
+import type { HTMLAttributes, PropsWithChildren, FC } from "react";
 import { MONOSPACE_FONT_FAMILY } from "theme/constants";
 import { DisabledBadge, EnabledBadge } from "./Badges";
 
@@ -88,24 +87,24 @@ export const OptionValue: FC<OptionValueProps> = (props) => {
                 },
               ]}
             >
-              <Box
-                sx={{
+              <div
+                css={{
                   display: "inline-flex",
                   alignItems: "center",
                 }}
               >
                 {isEnabled && (
                   <CheckCircleOutlined
-                    sx={{
+                    css={(theme) => ({
                       width: 16,
                       height: 16,
-                      color: (theme) => theme.palette.success.light,
+                      color: theme.palette.success.light,
                       margin: "0 8px",
-                    }}
+                    })}
                   />
                 )}
                 {option}
-              </Box>
+              </div>
             </li>
           ))}
       </ul>
@@ -127,64 +126,63 @@ export const OptionValue: FC<OptionValueProps> = (props) => {
   return <span css={optionStyles}>{JSON.stringify(value)}</span>;
 };
 
-interface OptionConfigProps extends BoxProps {
+interface OptionConfigProps extends HTMLAttributes<HTMLDivElement> {
   source?: boolean;
 }
 
-// OptionalConfig takes a source bool to indicate if the Option is the source of the configured value.
+// OptionConfig takes a source bool to indicate if the Option is the source of the configured value.
 export const OptionConfig = (props: OptionConfigProps) => {
-  const { source, sx, ...attrs } = props;
+  const { children, source, ...attrs } = props;
   const theme = useTheme();
   const borderColor = source
     ? theme.palette.primary.main
     : theme.palette.divider;
 
   return (
-    <Box
+    <div
       {...attrs}
-      sx={{
+      css={{
         fontSize: 13,
         fontFamily: MONOSPACE_FONT_FAMILY,
         fontWeight: 600,
-        backgroundColor: (theme) =>
-          source
-            ? theme.palette.primary.dark
-            : theme.palette.background.paperLight,
+        backgroundColor: source
+          ? theme.palette.primary.dark
+          : theme.palette.background.paperLight,
         display: "inline-flex",
         alignItems: "center",
         borderRadius: 0.25,
         padding: "0 8px",
         border: `1px solid ${borderColor}`,
-        ...sx,
       }}
-    />
+    >
+      {children}
+    </div>
   );
 };
 
-interface OptionConfigFlagProps extends BoxProps {
+interface OptionConfigFlagProps extends HTMLAttributes<HTMLDivElement> {
   source?: boolean;
 }
 
 export const OptionConfigFlag = (props: OptionConfigFlagProps) => {
-  const { children, source, sx, ...attrs } = props;
+  const { children, source, ...attrs } = props;
+  const theme = useTheme();
 
   return (
-    <Box
+    <div
       {...attrs}
-      sx={{
+      css={{
         fontSize: 10,
         fontWeight: 600,
         margin: "0 6px 0 -4px",
         display: "block",
-        backgroundColor: (theme) =>
-          source ? "rgba(0, 0, 0, 0.7)" : theme.palette.divider,
+        backgroundColor: source ? "rgba(0, 0, 0, 0.7)" : theme.palette.divider,
         lineHeight: 1,
         padding: "2px 4px",
         borderRadius: 0.25,
-        ...sx,
       }}
     >
       {children}
-    </Box>
+    </div>
   );
 };

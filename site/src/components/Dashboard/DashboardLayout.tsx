@@ -3,7 +3,7 @@ import { LicenseBanner } from "components/Dashboard/LicenseBanner/LicenseBanner"
 import { Loader } from "components/Loader/Loader";
 import { ServiceBanner } from "components/Dashboard/ServiceBanner/ServiceBanner";
 import { usePermissions } from "hooks/usePermissions";
-import { FC, Suspense } from "react";
+import { FC, HTMLAttributes, Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { dashboardContentBottomPadding } from "theme/constants";
 import { Navbar } from "./Navbar/Navbar";
@@ -74,21 +74,21 @@ export const DashboardLayout: FC = () => {
             }),
           }}
           message={
-            <Box display="flex" gap={2}>
+            <div css={{ display: "flex", gap: 16 }}>
               <InfoOutlined
-                sx={(theme) => ({
+                css={(theme) => ({
                   fontSize: 16,
                   height: 20, // 20 is the height of the text line so we can align them
                   color: theme.palette.info.light,
                 })}
               />
-              <Box>
+              <div>
                 Coder {updateCheck.data?.version} is now available. View the{" "}
                 <Link href={updateCheck.data?.url}>release notes</Link> and{" "}
                 <Link href={docs("/admin/upgrade")}>upgrade instructions</Link>{" "}
                 for more information.
-              </Box>
-            </Box>
+              </div>
+            </div>
           }
           action={
             <Button variant="text" size="small" onClick={updateCheck.dismiss}>
@@ -101,12 +101,13 @@ export const DashboardLayout: FC = () => {
   );
 };
 
-export const DashboardFullPage = (props: BoxProps) => {
+export const DashboardFullPage = (props: HTMLAttributes<HTMLDivElement>) => {
+  const { children, ...attrs } = props;
+
   return (
-    <Box
-      {...props}
-      sx={{
-        ...props.sx,
+    <div
+      {...attrs}
+      css={{
         marginBottom: `-${dashboardContentBottomPadding}px`,
         flex: 1,
         display: "flex",
@@ -114,6 +115,8 @@ export const DashboardFullPage = (props: BoxProps) => {
         flexBasis: 0,
         minHeight: "100%",
       }}
-    />
+    >
+      {children}
+    </div>
   );
 };

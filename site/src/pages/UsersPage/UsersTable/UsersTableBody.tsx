@@ -178,7 +178,7 @@ export const UsersTableBody: FC<
               ]}
             >
               <Box>{user.status}</Box>
-              <LastSeen value={user.last_seen_at} sx={{ fontSize: 12 }} />
+              <LastSeen value={user.last_seen_at} css={{ fontSize: 12 }} />
             </TableCell>
 
             {canEditUsers && (

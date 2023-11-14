@@ -139,7 +139,7 @@ export const ActiveUserChart: FC<ActiveUserChartProps> = ({
 
 export const ActiveUsersTitle = () => {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+    <div css={{ display: "flex", alignItems: "center", gap: 8 }}>
       Active Users
       <HelpTooltip size="small">
         <HelpTooltipTitle>How do we calculate active users?</HelpTooltipTitle>
@@ -148,7 +148,7 @@ export const ActiveUsersTitle = () => {
           considered an active user. e.g. apps, web terminal, SSH
         </HelpTooltipText>
       </HelpTooltip>
-    </Box>
+    </div>
   );
 };
 

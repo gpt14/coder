@@ -21,6 +21,7 @@ import { CoderIcon } from "components/Icons/CoderIcon";
 import { ProxyStatusLatency } from "components/ProxyStatusLatency/ProxyStatusLatency";
 import { usePermissions } from "hooks/usePermissions";
 import { UserDropdown } from "./UserDropdown/UserDropdown";
+import { Diversity2Sharp } from "@mui/icons-material";
 
 export const USERS_LINK = `/users?filter=${encodeURIComponent(
   "status:active",
@@ -242,12 +243,14 @@ export const NavbarView: FC<NavbarViewProps> = ({
           canViewAllUsers={canViewAllUsers}
         />
 
-        <Box
-          display="flex"
-          marginLeft={{ md: "auto" }}
-          gap={2}
-          alignItems="center"
-          paddingRight={2}
+        <div
+          css={{
+            display: "flex",
+            marginLeft: "auto",
+            gap: 2,
+            alignItems: "center",
+            paddingRight: 2,
+          }}
         >
           {proxyContextValue && (
             <ProxyMenu proxyContextValue={proxyContextValue} />
@@ -260,7 +263,7 @@ export const NavbarView: FC<NavbarViewProps> = ({
               onSignOut={onSignOut}
             />
           )}
-        </Box>
+        </div>
       </div>
     </nav>
   );
@@ -326,13 +329,10 @@ const ProxyMenu: FC<{ proxyContextValue: ProxyContextValue }> = ({
         {selectedProxy ? (
           <Box display="flex" gap={1} alignItems="center">
             <Box width={16} height={16} lineHeight={0}>
-              <Box
-                component="img"
+              <img
                 src={selectedProxy.icon_url}
                 alt=""
-                sx={{ objectFit: "contain" }}
-                width="100%"
-                height="100%"
+                css={{ objectFit: "contain", width: "100%", height: "100%" }}
               />
             </Box>
             <ProxyStatusLatency
@@ -351,12 +351,12 @@ const ProxyMenu: FC<{ proxyContextValue: ProxyContextValue }> = ({
         onClose={closeMenu}
         sx={{ "& .MuiMenu-paper": { py: 1 } }}
       >
-        <Box
-          sx={{
-            w: "100%",
-            fontSize: 14,
-            padding: 2,
+        <div
+          css={{
+            width: "100%",
             maxWidth: "320px",
+            fontSize: 14,
+            padding: 16,
             lineHeight: "140%",
           }}
         >
@@ -385,7 +385,7 @@ const ProxyMenu: FC<{ proxyContextValue: ProxyContextValue }> = ({
             manually selected, otherwise the default primary region will be
             used.
           </Typography>
-        </Box>
+        </div>
         <Divider sx={{ borderColor: (theme) => theme.palette.divider }} />
         {proxyContextValue.proxies
           ?.sort((a, b) => {
@@ -407,33 +407,41 @@ const ProxyMenu: FC<{ proxyContextValue: ProxyContextValue }> = ({
               }}
               key={proxy.id}
               selected={proxy.id === selectedProxy?.id}
-              sx={{
+              css={{
                 fontSize: 14,
               }}
             >
-              <Box display="flex" gap={3} alignItems="center" width="100%">
-                <Box width={14} height={14} lineHeight={0}>
-                  <Box
-                    component="img"
+              <Diversity2Sharp
+                css={{
+                  display: "flex",
+                  gap: 3,
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <div css={{ width: 14, height: 14, lineHeight: 0 }}>
+                  <img
                     src={proxy.icon_url}
                     alt=""
-                    sx={{ objectFit: "contain" }}
-                    width="100%"
-                    height="100%"
+                    css={{
+                      objectFit: "contain",
+                      width: "100%",
+                      height: "100%",
+                    }}
                   />
-                </Box>
+                </div>
                 {proxy.display_name}
                 <ProxyStatusLatency
                   latency={latencies?.[proxy.id]?.latencyMS}
                   isLoading={proxyLatencyLoading(proxy)}
                 />
-              </Box>
+              </Diversity2Sharp>
             </MenuItem>
           ))}
         <Divider sx={{ borderColor: (theme) => theme.palette.divider }} />
         {Boolean(permissions.editWorkspaceProxies) && (
           <MenuItem
-            sx={{ fontSize: 14 }}
+            css={{ fontSize: 14 }}
             onClick={() => {
               navigate("deployment/workspace-proxies");
             }}
@@ -442,7 +450,7 @@ const ProxyMenu: FC<{ proxyContextValue: ProxyContextValue }> = ({
           </MenuItem>
         )}
         <MenuItem
-          sx={{ fontSize: 14 }}
+          css={{ fontSize: 14 }}
           onClick={(e) => {
             // Stop the menu from closing
             e.stopPropagation();

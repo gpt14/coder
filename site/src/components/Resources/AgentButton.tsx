@@ -1,5 +1,5 @@
-import Button, { ButtonProps } from "@mui/material/Button";
-import { FC, forwardRef } from "react";
+import Button, { type ButtonProps } from "@mui/material/Button";
+import { type FC, forwardRef } from "react";
 
 export const PrimaryAgentButton: FC<ButtonProps> = ({
   className,
