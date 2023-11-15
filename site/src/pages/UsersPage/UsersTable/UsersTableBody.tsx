@@ -1,12 +1,18 @@
-import Box from "@mui/material/Box";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Skeleton from "@mui/material/Skeleton";
+import Divider from "@mui/material/Divider";
+import HideSourceOutlined from "@mui/icons-material/HideSourceOutlined";
+import KeyOutlined from "@mui/icons-material/KeyOutlined";
+import GitHub from "@mui/icons-material/GitHub";
+import PasswordOutlined from "@mui/icons-material/PasswordOutlined";
+import ShieldOutlined from "@mui/icons-material/ShieldOutlined";
 import { type Interpolation, type Theme } from "@emotion/react";
 import { type FC } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import type * as TypesGen from "api/typesGenerated";
+import { type GroupsByUserId } from "api/queries/groups";
 import { ChooseOne, Cond } from "components/Conditionals/ChooseOne";
 import { AvatarData } from "components/AvatarData/AvatarData";
 import { AvatarDataSkeleton } from "components/AvatarData/AvatarDataSkeleton";
@@ -16,15 +22,7 @@ import {
   TableRowSkeleton,
 } from "components/TableLoader/TableLoader";
 import { EnterpriseBadge } from "components/Badges/Badges";
-import HideSourceOutlined from "@mui/icons-material/HideSourceOutlined";
-import KeyOutlined from "@mui/icons-material/KeyOutlined";
-import GitHub from "@mui/icons-material/GitHub";
-import PasswordOutlined from "@mui/icons-material/PasswordOutlined";
-import ShieldOutlined from "@mui/icons-material/ShieldOutlined";
 import { LastSeen } from "components/LastSeen/LastSeen";
-import { UserRoleCell } from "./UserRoleCell";
-import { type GroupsByUserId } from "api/queries/groups";
-import { UserGroupsCell } from "./UserGroupsCell";
 import {
   MoreMenu,
   MoreMenuTrigger,
@@ -32,7 +30,8 @@ import {
   MoreMenuItem,
   ThreeDotsButton,
 } from "components/MoreMenu/MoreMenu";
-import Divider from "@mui/material/Divider";
+import { UserRoleCell } from "./UserRoleCell";
+import { UserGroupsCell } from "./UserGroupsCell";
 
 dayjs.extend(relativeTime);
 
@@ -91,9 +90,9 @@ export const UsersTableBody: FC<
         <TableLoaderSkeleton>
           <TableRowSkeleton>
             <TableCell>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <div css={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <AvatarDataSkeleton />
-              </Box>
+              </div>
             </TableCell>
 
             <TableCell>
@@ -126,9 +125,9 @@ export const UsersTableBody: FC<
           <Cond condition={isNonInitialPage}>
             <TableRow>
               <TableCell colSpan={999}>
-                <Box p={4}>
+                <div css={{ padding: 32 }}>
                   <EmptyState message="No users found on this page" />
-                </Box>
+                </div>
               </TableCell>
             </TableRow>
           </Cond>
@@ -136,9 +135,9 @@ export const UsersTableBody: FC<
           <Cond>
             <TableRow>
               <TableCell colSpan={999}>
-                <Box p={4}>
+                <div css={{ padding: 32 }}>
                   <EmptyState message="No users found" />
-                </Box>
+                </div>
               </TableCell>
             </TableRow>
           </Cond>
@@ -177,7 +176,7 @@ export const UsersTableBody: FC<
                 user.status === "suspended" && styles.suspended,
               ]}
             >
-              <Box>{user.status}</Box>
+              <div>{user.status}</div>
               <LastSeen value={user.last_seen_at} css={{ fontSize: 12 }} />
             </TableCell>
 

@@ -15,7 +15,14 @@ import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import SearchOutlined from "@mui/icons-material/SearchOutlined";
 import { useTheme } from "@emotion/react";
-import { type ReactNode, forwardRef, useEffect, useRef, useState } from "react";
+import {
+  type FC,
+  type ReactNode,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   getValidationErrorMessage,
@@ -149,7 +156,7 @@ type FilterProps = {
   presets: PresetFilter[];
 };
 
-export const Filter = ({
+export const Filter: FC<FilterProps> = ({
   filter,
   isLoading,
   error,
@@ -159,7 +166,7 @@ export const Filter = ({
   learnMoreLabel2,
   learnMoreLink2,
   presets,
-}: FilterProps) => {
+}) => {
   // Storing local copy of the filter query so that it can be updated more
   // aggressively without re-renders rippling out to the rest of the app every
   // single time. Exists for performance reasons - not really a good way to
@@ -280,18 +287,20 @@ export const Filter = ({
   );
 };
 
-const PresetMenu = ({
-  presets,
-  learnMoreLink,
-  learnMoreLabel2,
-  learnMoreLink2,
-  onSelect,
-}: {
+interface PresetMenuProps {
   presets: PresetFilter[];
   learnMoreLink: string;
   learnMoreLabel2?: string;
   learnMoreLink2?: string;
   onSelect: (query: string) => void;
+}
+
+const PresetMenu: FC<PresetMenuProps> = ({
+  presets,
+  learnMoreLink,
+  learnMoreLabel2,
+  learnMoreLink2,
+  onSelect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const anchorRef = useRef<HTMLButtonElement>(null);
@@ -371,17 +380,17 @@ const PresetMenu = ({
   );
 };
 
-export const FilterMenu = <TOption extends BaseOption>({
-  id,
-  menu,
-  label,
-  children,
-}: {
+interface FilterMenuProps<TOption extends BaseOption> {
   menu: ReturnType<typeof useFilterMenu<TOption>>;
   label: ReactNode;
   id: string;
   children: (values: { option: TOption; isSelected: boolean }) => ReactNode;
-}) => {
+}
+
+export const FilterMenu = <TOption extends BaseOption>(
+  props: FilterMenuProps<TOption>,
+) => {
+  const { id, menu, label, children } = props;
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -493,40 +502,49 @@ type OptionItemProps = {
   isSelected?: boolean;
 };
 
-export const OptionItem = ({ option, left, isSelected }: OptionItemProps) => {
+export const OptionItem: FC<OptionItemProps> = ({
+  option,
+  left,
+  isSelected,
+}) => {
   return (
-    <Box
-      display="flex"
-      alignItems="center"
-      gap={2}
-      fontSize={14}
-      overflow="hidden"
-      width="100%"
+    <div
+      css={{
+        display: "flex",
+        alignItems: "center",
+        gap: 16,
+        fontSize: 4,
+        overflow: "hidden",
+        width: "100%",
+      }}
     >
       {left}
-      <Box component="span" overflow="hidden" textOverflow="ellipsis">
+      <span css={{ overflow: "hidden", textOverflow: "ellipsis" }}>
         {option.label}
-      </Box>
+      </span>
       {isSelected && (
-        <CheckOutlined sx={{ width: 16, height: 16, marginLeft: "auto" }} />
+        <CheckOutlined css={{ width: 16, height: 16, marginLeft: "auto" }} />
       )}
-    </Box>
+    </div>
   );
 };
 
 const MenuButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const { children, ...attrs } = props;
+
   return (
     <Button
       ref={ref}
       endIcon={<KeyboardArrowDown />}
-      {...props}
-      sx={{
+      css={{
         borderRadius: "6px",
         justifyContent: "space-between",
         lineHeight: "120%",
-        ...props.sx,
       }}
-    />
+      {...attrs}
+    >
+      {children}
+    </Button>
   );
 });
 
@@ -553,7 +571,7 @@ function SearchMenu<TOption extends { label: string; value: string }>({
         menuProps.onClose && menuProps.onClose(event, reason);
         onQueryChange("");
       }}
-      sx={{
+      css={{
         "& .MuiPaper-root": {
           width: 320,
           paddingY: 0,

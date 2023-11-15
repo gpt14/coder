@@ -126,7 +126,7 @@ export const IconsPage: FC = () => {
             startAdornment: (
               <InputAdornment position="start">
                 <SearchIcon
-                  sx={{
+                  css={{
                     fontSize: 14,
                     color: theme.palette.text.secondary,
                   }}
@@ -140,7 +140,7 @@ export const IconsPage: FC = () => {
                     size="small"
                     onClick={() => setSearchInputText("")}
                   >
-                    <ClearIcon sx={{ fontSize: 14 }} />
+                    <ClearIcon css={{ fontSize: 14 }} />
                   </IconButton>
                 </Tooltip>
               </InputAdornment>
