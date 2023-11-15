@@ -1565,9 +1565,10 @@ export const getInsightsTemplate = async (
   return response.data;
 };
 
-export const getHealth = async () => {
+export const getHealth = async (forced: boolean = false) => {
+  const params = new URLSearchParams({ forced: forced.toString() });
   const response = await axios.get<TypesGen.HealthcheckReport>(
-    "/api/v2/debug/health",
+    `/api/v2/debug/health?${params}`,
   );
   return response.data;
 };

@@ -1,6 +1,6 @@
 import { type Interpolation, type Theme } from "@emotion/react";
 import Box from "@mui/material/Box";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { getHealth } from "api/api";
 import { Loader } from "components/Loader/Loader";
 import { useTab } from "hooks";
@@ -19,6 +19,9 @@ import {
 import { Stats, StatsItem } from "components/Stats/Stats";
 import { createDayString } from "utils/createDayString";
 import { DashboardFullPage } from "components/Dashboard/DashboardLayout";
+import { LoadingButton } from "@mui/lab";
+import ReplayIcon from "@mui/icons-material/Replay";
+import { FC } from "react";
 
 const sections = {
   derp: "DERP",
@@ -32,8 +35,9 @@ export default function HealthPage() {
   const { data: healthStatus } = useQuery({
     queryKey: ["health"],
     queryFn: () => getHealth(),
-    refetchInterval: 120_000,
+    refetchInterval: 30_000,
   });
+  const mutation = useMutation({})
 
   return (
     <>
@@ -103,6 +107,12 @@ export function HealthPageView({
             value={healthStatus.coder_version}
           />
         </Stats>
+        <RefreshButton
+          loading={false}
+          handleAction={() => {
+            console.log("refresh");
+          }}
+        />
       </FullWidthPageHeader>
       <Box
         sx={{
@@ -237,3 +247,25 @@ const styles = {
     },
   },
 } satisfies Record<string, Interpolation<Theme>>;
+
+interface HealthcheckAction {
+  handleAction: () => void;
+  loading: boolean;
+}
+
+export const RefreshButton: FC<HealthcheckAction> = ({
+  handleAction,
+  loading,
+}) => {
+  return (
+    <LoadingButton
+      loading={loading}
+      loadingPosition="start"
+      data-testid="healthcheck-refresh-button"
+      startIcon={<ReplayIcon />}
+      onClick={handleAction}
+    >
+      {loading ? <>Refreshing&hellip;</> : <>Refresh</>}
+    </LoadingButton>
+  );
+};
