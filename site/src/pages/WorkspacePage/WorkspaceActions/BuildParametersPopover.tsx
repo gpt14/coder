@@ -177,13 +177,13 @@ const Form = ({
           );
         })}
       </FormFields>
-      <Box sx={{ py: 3, pb: 1 }}>
+      <Box sx={{ padding: "24px 8px" }}>
         <Button
           data-testid="build-parameters-submit"
           type="submit"
           variant="contained"
           color="primary"
-          sx={{ width: "100%" }}
+          css={{ width: "100%" }}
         >
           Build workspace
         </Button>

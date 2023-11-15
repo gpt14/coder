@@ -71,9 +71,7 @@ export const ScheduleDialog: FC<PropsWithChildren<ScheduleDialogProps>> = ({
                 <div css={styles.dialogDescription}>{`
                 This change will result in ${inactiveWorkspacesToGoDormant} workspaces being immediately transitioned to the dormant state and ${inactiveWorkspacesToGoDormantInWeek} over the next seven days. To prevent this, do you want to reset the inactivity period for all template workspaces?`}</div>
                 <FormControlLabel
-                  sx={{
-                    marginTop: 2,
-                  }}
+                  css={{ marginTop: 2 }}
                   control={
                     <Checkbox
                       size="small"
@@ -96,9 +94,7 @@ export const ScheduleDialog: FC<PropsWithChildren<ScheduleDialogProps>> = ({
                   css={styles.dialogDescription}
                 >{`This change will result in ${dormantWorkspacesToBeDeleted} workspaces being immediately deleted and ${dormantWorkspacesToBeDeletedInWeek} over the next 7 days. To prevent this, do you want to reset the dormancy period for all template workspaces?`}</div>
                 <FormControlLabel
-                  sx={{
-                    marginTop: 2,
-                  }}
+                  css={{ marginTop: 2 }}
                   control={
                     <Checkbox
                       size="small"

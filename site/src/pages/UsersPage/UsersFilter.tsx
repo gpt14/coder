@@ -10,7 +10,9 @@ import {
   useFilter,
 } from "components/Filter/filter";
 import { BaseOption } from "components/Filter/options";
+import { useTheme } from "@emotion/react";
 import { UseFilterMenuOptions, useFilterMenu } from "components/Filter/menu";
+import type { ThemeRole } from "theme/experimental";
 import { docs } from "utils/docs";
 
 const userFilterQuery = {
@@ -19,7 +21,7 @@ const userFilterQuery = {
 };
 
 type StatusOption = BaseOption & {
-  color: string;
+  color: ThemeRole;
 };
 
 export const useStatusFilterMenu = ({
@@ -28,7 +30,7 @@ export const useStatusFilterMenu = ({
 }: Pick<UseFilterMenuOptions<StatusOption>, "value" | "onChange">) => {
   const statusOptions: StatusOption[] = [
     { value: "active", label: "Active", color: "success" },
-    { value: "dormant", label: "Dormant", color: "secondary" },
+    { value: "dormant", label: "Dormant", color: "notice" },
     { value: "suspended", label: "Suspended", color: "warning" },
   ];
   return useFilterMenu({
@@ -97,12 +99,14 @@ const StatusMenu = (menu: StatusFilterMenu) => {
   );
 };
 
-const StatusOptionItem = ({
-  option,
-  isSelected,
-}: {
+interface StatusOptionItemProps {
   option: StatusOption;
   isSelected?: boolean;
+}
+
+const StatusOptionItem: FC<StatusOptionItemProps> = ({
+  option,
+  isSelected,
 }) => {
   return (
     <OptionItem
@@ -113,15 +117,20 @@ const StatusOptionItem = ({
   );
 };
 
-const StatusIndicator: FC<{ option: StatusOption }> = ({ option }) => {
+interface StatusIndicatorProps {
+  option: StatusOption;
+}
+
+const StatusIndicator: FC<StatusIndicatorProps> = ({ option }) => {
+  const theme = useTheme();
+
   return (
     <Box
       height={8}
       width={8}
-      borderRadius={9999}
-      sx={{
-        backgroundColor: (theme) =>
-          (theme.palette[option.color as keyof Palette] as PaletteColor).light,
+      borderRadius={4}
+      css={{
+        backgroundColor: theme.experimental.roles[option.color].fill,
       }}
     />
   );

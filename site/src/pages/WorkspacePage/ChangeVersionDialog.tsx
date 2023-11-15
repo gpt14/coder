@@ -100,7 +100,7 @@ export const ChangeVersionDialog: FC<ChangeVersionDialogProps> = ({
                             >
                               {option.name}
                               {option.message && (
-                                <InfoIcon sx={{ width: 12, height: 12 }} />
+                                <InfoIcon css={{ width: 12, height: 12 }} />
                               )}
                             </Stack>
                             {template?.active_version_id === option.id && (

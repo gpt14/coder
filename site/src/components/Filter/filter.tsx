@@ -394,7 +394,7 @@ export const FilterMenu = <TOption extends BaseOption>({
       <MenuButton
         ref={buttonRef}
         onClick={() => setIsMenuOpen(true)}
-        sx={{ minWidth: 200 }}
+        css={{ minWidth: 200 }}
       >
         {label}
       </MenuButton>
@@ -403,7 +403,7 @@ export const FilterMenu = <TOption extends BaseOption>({
         anchorEl={buttonRef.current}
         open={isMenuOpen}
         onClose={handleClose}
-        sx={{ "& .MuiPaper-root": { minWidth: 200 } }}
+        css={{ "& .MuiPaper-root": { minWidth: 200 } }}
         // Disabled this so when we clear the filter and do some sorting in the
         // search items it does not look strange. Github removes exit transitions
         // on their filters as well.

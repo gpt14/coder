@@ -237,54 +237,52 @@ export const UsersTableBody: FC<
   );
 };
 
-const LoginType = ({
-  authMethods,
-  value,
-}: {
+interface LoginTypeProps {
   authMethods: TypesGen.AuthMethods;
   value: TypesGen.LoginType;
-}) => {
+}
+
+const LoginType: FC<LoginTypeProps> = ({ authMethods, value }) => {
   let displayName: string = value;
   let icon = <></>;
-  const iconStyles = { width: 14, height: 14 };
 
   if (value === "password") {
     displayName = "Password";
-    icon = <PasswordOutlined sx={iconStyles} />;
+    icon = <PasswordOutlined css={styles.icon} />;
   } else if (value === "none") {
     displayName = "None";
-    icon = <HideSourceOutlined sx={iconStyles} />;
+    icon = <HideSourceOutlined css={styles.icon} />;
   } else if (value === "github") {
     displayName = "GitHub";
-    icon = <GitHub sx={iconStyles} />;
+    icon = <GitHub css={styles.icon} />;
   } else if (value === "token") {
     displayName = "Token";
-    icon = <KeyOutlined sx={iconStyles} />;
+    icon = <KeyOutlined css={styles.icon} />;
   } else if (value === "oidc") {
     displayName =
       authMethods.oidc.signInText === "" ? "OIDC" : authMethods.oidc.signInText;
     icon =
       authMethods.oidc.iconUrl === "" ? (
-        <ShieldOutlined sx={iconStyles} />
+        <ShieldOutlined css={styles.icon} />
       ) : (
-        <Box
-          component="img"
+        <img
           alt="Open ID Connect icon"
           src={authMethods.oidc.iconUrl}
-          sx={iconStyles}
+          css={styles.icon}
         />
       );
   }
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 1, fontSize: 14 }}>
+    <div css={{ display: "flex", alignItems: "center", gap: 8, fontSize: 14 }}>
       {icon}
       {displayName}
-    </Box>
+    </div>
   );
 };
 
 const styles = {
+  icon: { width: 14, height: 14 },
   status: {
     textTransform: "capitalize",
   },
