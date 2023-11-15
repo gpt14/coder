@@ -126,7 +126,8 @@ export const PortForwardPopoverView: React.FC<
                   display: "flex",
                   alignItems: "center",
                   gap: 8,
-                  padding: "0 4px",
+                  paddingTop: 4,
+                  paddingBottom: 4,
                   fontWeight: 500,
                 }}
                 key={p.port}

@@ -1,18 +1,17 @@
-import { DeploymentBanner } from "./DeploymentBanner/DeploymentBanner";
+import Snackbar from "@mui/material/Snackbar";
+import Link from "@mui/material/Link";
+import Button from "@mui/material/Button";
+import InfoOutlined from "@mui/icons-material/InfoOutlined";
+import { type FC, type HTMLAttributes, Suspense } from "react";
+import { Outlet } from "react-router-dom";
 import { LicenseBanner } from "components/Dashboard/LicenseBanner/LicenseBanner";
 import { Loader } from "components/Loader/Loader";
 import { ServiceBanner } from "components/Dashboard/ServiceBanner/ServiceBanner";
 import { usePermissions } from "hooks/usePermissions";
-import { FC, HTMLAttributes, Suspense } from "react";
-import { Outlet } from "react-router-dom";
 import { dashboardContentBottomPadding } from "theme/constants";
-import { Navbar } from "./Navbar/Navbar";
-import Snackbar from "@mui/material/Snackbar";
-import Link from "@mui/material/Link";
-import Box, { BoxProps } from "@mui/material/Box";
-import InfoOutlined from "@mui/icons-material/InfoOutlined";
-import Button from "@mui/material/Button";
 import { docs } from "utils/docs";
+import { Navbar } from "./Navbar/Navbar";
+import { DeploymentBanner } from "./DeploymentBanner/DeploymentBanner";
 import { useUpdateCheck } from "./useUpdateCheck";
 
 export const DashboardLayout: FC = () => {
@@ -101,9 +100,10 @@ export const DashboardLayout: FC = () => {
   );
 };
 
-export const DashboardFullPage = (props: HTMLAttributes<HTMLDivElement>) => {
-  const { children, ...attrs } = props;
-
+export const DashboardFullPage: FC<HTMLAttributes<HTMLDivElement>> = ({
+  children,
+  ...attrs
+}) => {
   return (
     <div
       {...attrs}

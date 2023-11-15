@@ -5,7 +5,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { type FC } from "react";
-import Box from "@mui/material/Box";
 import { css } from "@emotion/react";
 import type { ClibaseOption } from "api/typesGenerated";
 import {
@@ -17,10 +16,12 @@ import {
 } from "components/DeploySettingsLayout/Option";
 import { optionValue } from "./optionValue";
 
-const OptionsTable: FC<{
+interface OptionsTableProps {
   options: ClibaseOption[];
   additionalValues?: string[];
-}> = ({ options, additionalValues }) => {
+}
+
+const OptionsTable: FC<OptionsTableProps> = ({ options, additionalValues }) => {
   if (options.length === 0) {
     return <p>No options to configure</p>;
   }

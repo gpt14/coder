@@ -325,7 +325,7 @@ const PresetMenu = ({
           vertical: "top",
           horizontal: "left",
         }}
-        css={{ "& .MuiMenu-paper": { padding: "0 8px" } }}
+        css={{ "& .MuiMenu-paper": { paddingTop: 8, paddingBottom: 8 } }}
       >
         {presets.map((presetFilter) => (
           <MenuItem
@@ -634,7 +634,8 @@ function SearchMenu<TOption extends { label: string; value: string }>({
                   fontSize: 13,
                   color: theme.palette.text.secondary,
                   textAlign: "center",
-                  padding: "0 8px",
+                  paddingTop: 8,
+                  paddingBottom: 8,
                 }}
               >
                 No results

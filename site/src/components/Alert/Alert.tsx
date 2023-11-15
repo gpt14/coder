@@ -1,4 +1,4 @@
-import { useState, FC, ReactNode } from "react";
+import { useState, FC, ReactNode, PropsWithChildren } from "react";
 import Collapse from "@mui/material/Collapse";
 // eslint-disable-next-line no-restricted-imports -- It is the base component
 import MuiAlert, { AlertProps as MuiAlertProps } from "@mui/material/Alert";
@@ -61,7 +61,7 @@ export const Alert: FC<AlertProps> = ({
   );
 };
 
-export const AlertDetail = ({ children }: { children: ReactNode }) => {
+export const AlertDetail: FC<PropsWithChildren> = ({ children }) => {
   return (
     <span
       css={(theme) => ({ color: theme.palette.text.secondary, fontSize: 13 })}
